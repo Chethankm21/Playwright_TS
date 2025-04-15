@@ -5,18 +5,19 @@ jobs:
     name: Run E2E tests
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v3
-      - name: Install node
-        uses: actions/setup-node@v4
+      - name: 📥 Checkout code
+        uses: actions/checkout@v3
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 20.12.2
-      - name: Install Playwright
+          node-version: '18' # or your preferred version
+
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      - name: 🧪 Install Playwright Browsers
         run: npx playwright install --with-deps
-      - name: Run your tests
+
+      - name: ▶️ Run Playwright Tests
         run: npx playwright test
-      # - name: Upload test results
-      #   if: always()
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: Test Results
-      #     path: test-results
